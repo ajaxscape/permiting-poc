@@ -11,6 +11,7 @@ bespoke-or-standard-rules:
   path: "/bespoke-or-standard-rules"
   handlers: bespoke-or-standard-rules/bespoke-or-standard-rules.handlers
   title: Choose the type of permit you want
+  isQuestionPage: true
   view: bespoke-or-standard-rules/bespoke-or-standard-rules
   next:
     query: permitType

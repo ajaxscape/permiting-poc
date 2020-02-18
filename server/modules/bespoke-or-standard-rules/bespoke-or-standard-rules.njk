@@ -1,7 +1,37 @@
 {% extends 'two-thirds-layout.njk' %}
 
-{% from "input/macro.njk" import govukInput %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "details/macro.njk" import govukDetails %}
+
+
+{% set detailsHtml %}
+  <ul class="govuk-list govuk-list--bullet">
+    <li>
+      <a id="hint-link-1" class="govuk-link" href="https://www.gov.uk/guidance/check-if-you-need-an-environmental-permit" target="_blank" rel="noopener noreferrer">read about environmental permits on GOV.UK (opens new tab)</a>
+    </li>
+    <li>
+      <a id="hint-link-2" class="govuk-link" href="https://www.gov.uk/government/organisations/environment-agency#org-contacts" target="_blank" rel="noopener noreferrer">contact the Environment Agency (opens new tab)</a>
+    </li>
+  </ul>
+{% endset %}
 
 {% block formContent %}
-  <f2>CHEESE</f2>
+  {{ govukRadios({
+    idPrefix: "permit-type",
+    name: "permit-type",
+    fieldset: {
+      legend: {
+        text: pageHeading,
+        isPageHeading: isQuestionPage,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: viewData.errors["permit-type"],
+    items: viewData.permitTypes
+  }) }}
+
+  {{ govukDetails({
+    summaryText: "I don't know",
+    html: detailsHtml
+  }) }}
 {% endblock %}

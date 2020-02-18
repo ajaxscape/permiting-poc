@@ -1,4 +1,4 @@
-class FacilityType extends require('defra-hapi-handlers') {
+class CategoryHandlers extends require('defra-hapi-handlers') {
   // Overrides parent class handleGet
   async handleGet (request, h, errors) {
     this.viewData = { greeting: 'Hello world' }
@@ -6,4 +6,4 @@ class FacilityType extends require('defra-hapi-handlers') {
   }
 }
 
-module.exports = Category
+module.exports = CategoryHandlers
