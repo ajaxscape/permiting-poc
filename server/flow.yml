@@ -27,6 +27,7 @@ permit-category:
   path: "/permit/category"
   handlers: permit/category.handlers
   title: What do you want the permit for?
+  isQuestionPage: true
   view: permit/category
   next:
     query: isOnline
@@ -47,4 +48,5 @@ facility-type:
   path: "/facility-type"
   handlers: permit/facility-type.handlers
   title: What type of facility do you want the permit for?
+  isQuestionPage: true
   view: permit/facility-type

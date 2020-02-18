@@ -1,4 +1,4 @@
-const { Cache } = require('defra-hapi-utils')
+const Cache = require('../../utils/cache')
 
 class HomeHandlers extends require('defra-hapi-handlers') {
   async handleGet (request, h, errors) {

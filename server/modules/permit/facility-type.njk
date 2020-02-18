@@ -1,7 +1,23 @@
 {% extends 'two-thirds-layout.njk' %}
 
-{% from "input/macro.njk" import govukInput %}
+{% from "radios/macro.njk" import govukRadios %}
 
 {% block formContent %}
-  <f2>CHEESE</f2>
-{% endblock %}
+  {{ govukRadios({
+    idPrefix: "facility-type",
+    name: "facility-type",
+    fieldset: {
+      legend: {
+        text: pageHeading,
+        isPageHeading: isQuestionPage,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: viewData.errors["facility-type"],
+    items: viewData.facilityTypes
+  }) }}
+  
+  <div class="govuk-form-group">
+    <p class="govuk-body"><span id="helpline-text">Not sure? Call our helpline on</span> <a id="helpline-number" href="tel:+443708506506">03708 506 506.</a></p>
+  </div>
+  {% endblock %}

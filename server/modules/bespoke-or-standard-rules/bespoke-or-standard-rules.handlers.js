@@ -1,4 +1,4 @@
-const { Cache } = require('defra-hapi-utils')
+const Cache = require('../../utils/cache')
 
 const permitTypes = [
   {
@@ -13,17 +13,15 @@ const permitTypes = [
 
 class BespokeOrStandardRulesHandlers extends require('defra-hapi-handlers') {
   async permitType (request) {
-    const application = await Cache.get(request, 'Application')
-    return application.permitType
+    const { permitType } = await Cache.get(request, 'Application')
+    return permitType
   }
 
   // Overrides parent class handleGet
   async handleGet (request, h, errors) {
-    const application = await Cache.get(request, 'Application')
-    const { permitType } = application
+    const { permitType } = await Cache.get(request, 'Application')
 
     this.viewData = {
-      application,
       permitTypes: permitTypes.map((item) => {
         return {...item, checked: permitType !== undefined && item.value === permitType}
       })
@@ -34,9 +32,9 @@ class BespokeOrStandardRulesHandlers extends require('defra-hapi-handlers') {
 
   // Overrides parent class handlePost
   async handlePost (request, h) {
-    const application = await Cache.get(request, 'Application')
-    application.permitType = request.payload['permit-type']
-    await Cache.set(request, 'Application', application)
+    await Cache.update(request, 'Application', {
+      permitType: request.payload['permit-type']
+    })
     return super.handlePost(request, h)
   }
 }
