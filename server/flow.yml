@@ -1,0 +1,49 @@
+# =====================
+# ===== Main flow =====
+# =====================
+
+home:
+  path: "/"
+  handlers: home/home.handlers
+  next: bespoke-or-standard-rules
+
+bespoke-or-standard-rules:
+  path: "/bespoke-or-standard-rules"
+  handlers: bespoke-or-standard-rules/bespoke-or-standard-rules.handlers
+  title: Choose the type of permit you want
+  view: bespoke-or-standard-rules/bespoke-or-standard-rules
+  next:
+    query: permitType
+    when:
+      'standard-rules': permit-category
+      'bespoke': facility-type
+
+# ===============================
+# ===== Standard rules flow =====
+# ===============================
+
+permit-category:
+  path: "/permit/category"
+  handlers: permit/category.handlers
+  title: What do you want the permit for?
+  view: permit/category
+  next:
+    query: isOnline
+    when:
+      'yes': facility-type
+      'no': apply-offline
+
+apply-offline:
+  path: "/start/apply-offline"
+  handlers: permit/apply-offline.handlers
+  view: permit/apply-offline
+
+# ===============================
+# ===== Standard rules flow =====
+# ===============================
+
+facility-type:
+  path: "/facility-type"
+  handlers: permit/facility-type.handlers
+  title: What type of facility do you want the permit for?
+  view: permit/facility-type
